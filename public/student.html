@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Moses & Grace</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h1 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 0.5rem;">MOSES AND GRACE</h1>
+            <span style="color: #00875A; font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 2rem;">PAYMENT PORTAL</span>
+            <nav>
+                <ul>
+                    <li><a href="#" id="link-fees" class="active">My Fees</a></li>
+                    <li><a href="#" id="link-history">History</a></li>
+                    <li><a href="#" id="link-profile">Profile</a></li>
+                    <li><a href="#" id="link-tickets">Support Tickets</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <!-- View: Fees -->
+            <div id="view-fees">
+                <header class="content-header">
+                    <h2>My Payments</h2>
+                    <div class="student-info" style="text-align: right;">
+                        <span id="student-name" style="display:block; font-weight:600;">Loading...</span>
+                        <span id="student-dept-level" style="color:var(--text-muted); font-size:0.9rem;">...</span>
+                    </div>
+                </header>
+
+                <div class="grid-cards">
+                    <div class="card">
+                        <h3>Total Fees Assigned</h3>
+                        <div class="value" id="total-assigned">₦0</div>
+                    </div>
+                    <div class="card">
+                        <h3>Total Paid</h3>
+                        <div class="value" id="total-paid">₦0</div>
+                    </div>
+                    <div class="card">
+                        <h3>Outstanding Balance</h3>
+                        <div class="value" id="outstanding-balance">₦0</div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn-fees-pay" style="width: 100%; margin-top: 1rem; margin-bottom: 0.5rem;">Make Payment</button>
+                <p style="text-align: center; font-size: 0.85rem; color: #10b981; margin-bottom: 2rem; font-weight: 500;">
+                    <i class="fas fa-bolt"></i> Making payment with OPay is instant and faster which is preferable.
+                </p>
+
+                <div class="table-container">
+                    <h3>Outstanding Fees</h3>
+                    <br>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fee Title</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fees-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View: History -->
+            <div id="view-history" style="display:none;">
+                <header class="content-header">
+                    <h2>Payment History</h2>
+                </header>
+                <div class="table-container">
+                    <h3>All Payments</h3>
+                    <br>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Fee Title</th>
+                                <th>Amount Paid</th>
+                                <th>OPay ID</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View: Profile -->
+            <div id="view-profile" style="display:none;">
+                <header class="content-header">
+                    <h2>My Profile</h2>
+                </header>
+                <div class="glass-morphism" style="padding: 2rem; max-width: 600px; width: 100%;">
+                    <form id="form-profile">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="profile-name" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="profile-email" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select id="profile-dept" disabled>
+                                <option value="">-- Select Department --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <input type="text" id="profile-level" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Session</label>
+                            <input type="text" id="profile-session" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password (Leave blank to keep current)</label>
+                            <input type="password" id="profile-password" placeholder="••••••••" readonly>
+                        </div>
+                        <div class="actions" style="display: flex; gap: 1rem;">
+                            <button type="button" class="btn btn-secondary" id="btn-edit-profile" style="width: 100%;">Edit Profile</button>
+                            <button type="submit" class="btn btn-primary" id="btn-save-profile" style="width: 100%; display: none;">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View: Tickets -->
+            <div id="view-tickets" style="display:none;">
+                <header class="content-header">
+                    <h2>Support Tickets</h2>
+                </header>
+                <div class="grid-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                    <div class="glass-morphism" style="padding: 2rem;">
+                        <h3>Submit a Ticket</h3>
+                        <br>
+                        <form id="form-ticket">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" id="ticket-subject" required placeholder="e.g., Payment Not Reflecting">
+                            </div>
+                            <div class="form-group">
+                                <label>Related Payment (Optional)</label>
+                                <select id="ticket-payment">
+                                    <option value="">None</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea id="ticket-message" required rows="5" placeholder="Describe your issue..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Ticket</button>
+                        </form>
+                    </div>
+                    
+                    <div class="table-container">
+                        <h3>My Tickets</h3>
+                        <br>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tickets-table-body">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Payment -->
+            <div id="modal-payment" class="modal" style="display:none;">
+                <div class="modal-content glass-morphism">
+                    <h3>Make Payment</h3>
+                    <br>
+                    <p id="payment-fee-title" style="font-weight:600;">Fee Title</p>
+                    <p id="payment-fee-amount" style="color:var(--text-muted);">Amount: ₦0</p>
+                    <br>
+                    <form id="form-payment">
+                        <div class="form-group">
+                            <label>Amount to Pay (₦)</label>
+                            <input type="number" id="pay-amount" required>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn btn-primary">Pay with OPay</button>
+                            <button type="button" class="btn btn-secondary" id="btn-close-payment">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/student.js"></script>
+</body>
+</html>

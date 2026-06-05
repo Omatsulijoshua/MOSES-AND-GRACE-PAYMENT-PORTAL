@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Moses & Grace</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="max-width: 500px;">
+        <header style="margin-bottom: 2rem; text-align: center;">
+            <div class="logo">
+                <h1 style="color: #dc2626; font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">MOSES & GRACE</h1>
+                <span style="color: #16a34a; font-size: 1rem; font-weight: 600;">College of Health Science & Technology</span>
+            </div>
+        </header>
+        <main class="glass-morphism" style="padding: 2rem; max-width: 100%;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Admin Sign In</h2>
+            
+            <form id="form-admin-login">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" required placeholder="admin">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Back to Student Portal</a>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        const form = document.getElementById('form-admin-login');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/api/auth/admin-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                localStorage.setItem('adminToken', data.token);
+                window.location.href = 'admin.html';
+            } else {
+                const data = await res.json();
+                alert(`Error: ${data.error || 'Login failed'}`);
+            }
+        });
+    </script>
+</body>
+</html>

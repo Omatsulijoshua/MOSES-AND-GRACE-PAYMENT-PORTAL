@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moses & Grace Payment Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .form-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .form-toggle button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .form-toggle button.active {
+            color: var(--text);
+            border-bottom-color: var(--primary);
+        }
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+        <header style="margin-bottom: 2rem; text-align: center;">
+            <div class="logo">
+                <h1 style="color: #dc2626; font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">MOSES & GRACE</h1>
+                <span style="color: #16a34a; font-size: 1.2rem; font-weight: 600;">College of Health Science & Technology</span>
+            </div>
+        </header>
+        <main class="glass-morphism" style="padding: 2rem; max-width: 100%;">
+            <div class="form-toggle">
+                <button id="toggle-signin" class="active">Sign In</button>
+                <button id="toggle-signup">Create Account</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <form id="form-signin" class="auth-form active">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="si-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="si-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <a href="admin-login.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Are you an Admin? Click here</a>
+                </div>
+            </form>
+
+            <!-- Create Account Form -->
+            <form id="form-signup" class="auth-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="su-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="su-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="su-dept" required>
+                        <option value="">-- Select Department --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Level</label>
+                    <input type="text" id="su-level" required placeholder="e.g. ND1">
+                </div>
+                <div class="form-group">
+                    <label>Session</label>
+                    <input type="text" id="su-session" required placeholder="e.g. 2026/2027">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="su-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        // Toggle forms
+        const btnSignIn = document.getElementById('toggle-signin');
+        const btnSignUp = document.getElementById('toggle-signup');
+        const formSignIn = document.getElementById('form-signin');
+        const formSignUp = document.getElementById('form-signup');
+
+        btnSignIn.addEventListener('click', () => {
+            btnSignIn.classList.add('active');
+            btnSignUp.classList.remove('active');
+            formSignIn.classList.add('active');
+            formSignUp.classList.remove('active');
+        });
+
+        btnSignUp.addEventListener('click', () => {
+            btnSignUp.classList.add('active');
+            btnSignIn.classList.remove('active');
+            formSignUp.classList.add('active');
+            formSignIn.classList.remove('active');
+        });
+
+        // Handle Sign In
+        formSignIn.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('si-email').value;
+            const password = document.getElementById('si-password').value;
+
+            // Call API
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                localStorage.setItem('studentToken', data.token);
+                localStorage.setItem('studentId', data.studentId);
+                window.location.href = 'student.html';
+            } else {
+                const data = await res.json();
+                alert(`Error: ${data.error || 'Login failed'}`);
+            }
+        });
+
+        // Handle Sign Up
+        formSignUp.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('su-name').value;
+            const email = document.getElementById('su-email').value;
+            const department = document.getElementById('su-dept').value;
+            const level = document.getElementById('su-level').value;
+            const session = document.getElementById('su-session').value;
+            const password = document.getElementById('su-password').value;
+
+            // Call API
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, department, level, session, password })
+            });
+
+            if (res.ok) {
+                alert('Account created successfully! Please sign in.');
+                btnSignIn.click(); // Switch to sign in
+            } else {
+                const data = await res.json();
+                alert(`Error: ${data.error || 'Registration failed'}`);
+            }
+        });
+        // Fetch and populate departments for signup
+        async function fetchSignupDepartments() {
+            try {
+                const res = await fetch('/api/auth/student-categories');
+                const categories = await res.json();
+                const deptSelect = document.getElementById('su-dept');
+                if (deptSelect) {
+                    deptSelect.innerHTML = '<option value="">-- Select Department --</option>';
+                    categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.name;
+                        option.textContent = cat.name;
+                        deptSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching departments:', error);
+            }
+        }
+
+        fetchSignupDepartments();
+    </script>
+</body>
+</html>

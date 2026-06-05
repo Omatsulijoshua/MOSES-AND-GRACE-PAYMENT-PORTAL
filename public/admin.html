@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Moses & Grace</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h1 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 0.5rem;">MOSES AND GRACE</h1>
+            <span style="color: #00875A; font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 2rem;">PAYMENT PORTAL</span>
+            <nav>
+                <ul>
+                    <li><a href="#" id="link-categories" class="active">Payment Categories</a></li>
+                    <li><a href="#" id="link-student-categories">Student Fees Category</a></li>
+                    <li><a href="#" id="link-students">Students</a></li>
+                    <li><a href="#" id="link-reports">Reports</a></li>
+                    <li><a href="#" id="link-verify-payment">Verify Payment</a></li>
+                    <li><a href="#" id="link-admin-mgmt">Admin Management</a></li>
+                    <li><a href="#" id="link-tickets">Support Tickets</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div id="view-categories">
+                <header class="content-header">
+                    <h2>Payment Category Management</h2>
+                    <button class="btn btn-primary" id="btn-new-category">Create Payment Category</button>
+                </header>
+
+            <div class="filters-section glass-morphism" style="margin-bottom: 2rem; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-end; border-radius: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Start Date</label>
+                    <input type="date" id="start-date">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>End Date</label>
+                    <input type="date" id="end-date">
+                </div>
+                <button class="btn btn-primary" id="btn-apply-filter">Apply Filter</button>
+                <button class="btn btn-secondary" id="btn-clear-filter">Clear</button>
+            </div>
+
+            <div class="grid-cards">
+                <div class="card">
+                    <h3>Payments Made Today</h3>
+                    <div class="value" id="payments-today">₦0</div>
+                </div>
+                <div class="card">
+                    <h3>Total Received</h3>
+                    <div class="value" id="total-received">₦0</div>
+                </div>
+                <div class="card">
+                    <h3>Pending Payments</h3>
+                    <div class="value" id="pending-payments">0</div>
+                </div>
+                <div class="card">
+                    <h3>Total Expected Revenue</h3>
+                    <div class="value" id="total-expected">₦0</div>
+                </div>
+                <div class="card">
+                    <h3>Total Payment Categories</h3>
+                    <div class="value" id="total-categories">0</div>
+                </div>
+                <div class="card">
+                    <h3>Active Payment Categories</h3>
+                    <div class="value" id="active-categories">0</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Student Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Session</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categories-table-body">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+            </div> <!-- End of view-categories -->
+
+            <!-- View for Student Fees Category -->
+            <div id="view-student-categories" style="display:none;">
+                <header class="content-header">
+                    <h2>Student Fees Category Management</h2>
+                    <button class="btn btn-primary" id="btn-new-student-category">Add Student Category</button>
+                </header>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-categories-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View for Admin Management -->
+            <div id="view-admin-mgmt" style="display:none;">
+                <header class="content-header">
+                    <h2>Admin Management</h2>
+                </header>
+
+                <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <!-- Change Password Card -->
+                    <div class="card glass-morphism" style="padding: 2rem;">
+                        <h3>Change Password</h3>
+                        <br>
+                        <form id="form-change-password">
+                            <div class="form-group">
+                                <label>Select Admin</label>
+                                <select id="cp-username" required>
+                                    <option value="">-- Select Admin --</option>
+                                    <!-- Dynamic content -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="cp-new-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="cp-confirm-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+
+                    <!-- Add New Admin Card -->
+                    <div class="card glass-morphism" style="padding: 2rem;">
+                        <h3>Add New Admin</h3>
+                        <br>
+                        <form id="form-add-admin">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" id="aa-username" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" id="aa-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="aa-confirm-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="aa-name">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Admin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View for Reports -->
+            <div id="view-reports" style="display:none;">
+                <header class="content-header">
+                    <h2>Financial Reports</h2>
+                </header>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Fee Title</th>
+                                <th>Amount Paid</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reports-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View for Students -->
+            <div id="view-students" style="display:none;">
+                <header class="content-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Student Management</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-student" placeholder="Search by name..." style="padding: 0.5rem; border-radius: 5px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; width: 250px;">
+                    </div>
+                </header>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Level</th>
+                                <th>Session</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View for Payment Verification -->
+            <div id="view-verify-payment" style="display:none;">
+                <header class="content-header">
+                    <h2>Verify OPay Transaction</h2>
+                </header>
+
+                <div class="card glass-morphism" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <form id="form-verify-payment" style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+                        <div class="form-group" style="flex: 1; min-width: 260px; margin-bottom: 0;">
+                            <label>OPay Transaction ID / Reference</label>
+                            <input type="text" id="verify-reference" placeholder="Paste transaction ID or reference" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Verify Payment</button>
+                    </form>
+                </div>
+
+                <div id="verify-payment-result" class="card glass-morphism" style="padding: 1.5rem; display: none;">
+                    <!-- Dynamic verification result -->
+                </div>
+            </div>
+
+            <!-- View for Student Details -->
+            <div id="view-student-details" style="display:none;">
+                <header class="content-header">
+                    <h2>Student Payment Details</h2>
+                    <button class="btn btn-secondary" id="btn-back-to-students">Back to Students</button>
+                </header>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; padding: 1rem;" class="card glass-morphism">
+                    <div>
+                        <p style="margin: 0.2rem 0;"><span style="color: var(--text-secondary);">Name:</span> <span id="sd-name" style="font-weight: bold;"></span></p>
+                        <p style="margin: 0.2rem 0;"><span style="color: var(--text-secondary);">Email:</span> <span id="sd-email"></span></p>
+                    </div>
+                    <div>
+                        <p style="margin: 0.2rem 0;"><span style="color: var(--text-secondary);">Dept/Level:</span> <span id="sd-dept-level"></span></p>
+                        <p style="margin: 0.2rem 0;"><span style="color: var(--text-secondary);">Session:</span> <span id="sd-session"></span></p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fee Title</th>
+                                <th>Amount Paid</th>
+                                <th>Date</th>
+                                <th>OPay Transaction ID</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-payments-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="text-align: right; margin-top: 1.5rem;">
+                    <button class="btn btn-primary" id="btn-print-student-details">Print Report</button>
+                </div>
+            </div>
+
+            <!-- View for Tickets -->
+            <div id="view-tickets" style="display:none;">
+                <header class="content-header">
+                    <h2>Support Tickets</h2>
+                </header>
+                
+                <div class="filters-section glass-morphism" style="margin-bottom: 2rem; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-end; border-radius: 16px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Filter by Status</label>
+                        <select id="filter-ticket-status">
+                            <option value="">All</option>
+                            <option value="open">Open</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="btn-apply-ticket-filter">Apply</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Student</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tickets-table-body">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal for Creating/Editing -->
+            <div id="modal-category" class="modal" style="display:none;">
+                <div class="modal-content glass-morphism">
+                    <h3 id="modal-title">Create Payment Category</h3>
+                    <form id="form-category">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₦)</label>
+                            <input type="number" id="amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Type</label>
+                            <select id="paymentType" required>
+                                <option value="School Fees">School Fees</option>
+                                <option value="Acceptance Fee">Acceptance Fee</option>
+                                <option value="Project Fee">Project Fee</option>
+                                <option value="Hostel Fee">Hostel Fee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Academic Session</label>
+                            <input type="text" id="academicSession" placeholder="e.g., 2026/2027" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select id="department">
+                                <option value="">-- All Departments --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <input type="text" id="level" placeholder="Optional">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" id="btn-close-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal for Receipt -->
+            <div id="modal-receipt" class="modal" style="display:none;">
+                <div class="modal-content receipt-content glass-morphism" style="max-width: 500px; padding: 2rem; border: 2px dashed rgba(255,255,255,0.2);">
+                    <div style="text-align: center; border-bottom: 2px dashed rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1rem;">
+                        <h2>MOSES & GRACE</h2>
+                        <p>Official Payment Receipt</p>
+                    </div>
+                    <div class="receipt-body" style="line-height: 2;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>OPay Transaction ID:</span>
+                            <span id="r-reference" style="font-weight: bold;">#12345</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Date:</span>
+                            <span id="r-date">--/--/----</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Student Name:</span>
+                            <span id="r-student-name">John Doe</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Fee Category:</span>
+                            <span id="r-category">School Fees</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem; margin-top: 0.5rem;">
+                            <span>Amount Paid:</span>
+                            <span id="r-amount" style="font-weight: bold; font-size: 1.2rem;">₦0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Status:</span>
+                            <span id="r-status" class="status-badge status-paid">Paid</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 1rem; margin-top: 1rem;">
+                        <p>Thank you for your payment!</p>
+                        <br>
+                        <button class="btn btn-primary" id="btn-print-receipt">Print Receipt</button>
+                        <button class="btn btn-secondary" id="btn-close-receipt">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Reset Student Password -->
+            <div id="modal-reset-password" class="modal" style="display:none;">
+                <div class="modal-content glass-morphism" style="max-width: 400px; padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Reset Student Password</h3>
+                    <form id="form-reset-password">
+                        <input type="hidden" id="reset-student-id">
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            <input type="text" id="reset-student-name" readonly style="background: rgba(255,255,255,0.05); color: var(--text-muted);">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="reset-new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="reset-confirm-password" required>
+                        </div>
+                        <div class="actions" style="display: flex; gap: 1rem; justify-content: flex-end;">
+                            <button type="submit" class="btn btn-primary">Reset Password</button>
+                            <button type="button" class="btn btn-secondary" id="btn-close-reset-password">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal for Creating Student Category -->
+            <div id="modal-student-category" class="modal" style="display:none;">
+                <div class="modal-content glass-morphism" style="max-width: 400px; padding: 2rem;">
+                    <h3>Add Student Category</h3>
+                    <form id="form-student-category">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <input type="text" id="sc-name" placeholder="e.g., Nursing, Medicine, Pharmacist" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" id="sc-description" placeholder="Optional">
+                        </div>
+                        <div class="actions" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" id="btn-close-sc-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>
