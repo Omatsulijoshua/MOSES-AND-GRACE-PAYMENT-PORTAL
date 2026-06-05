@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: moses-and-grace-payment-portal
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build && npx prisma migrate deploy
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: moses-and-grace-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_BASE_URL
+        sync: false
+      - key: OPAY_BASE_URL
+        sync: false
+      - key: OPAY_COUNTRY
+        value: NG
+      - key: OPAY_MERCHANT_ID
+        sync: false
+      - key: OPAY_PUBLIC_KEY
+        sync: false
+      - key: OPAY_SECRET_KEY
+        sync: false
+      - key: OPAY_SN
+        sync: false
+      - key: ENABLE_MANUAL_PAYMENTS
+        value: "false"
+
+databases:
+  - name: moses-and-grace-db
+    plan: free
+

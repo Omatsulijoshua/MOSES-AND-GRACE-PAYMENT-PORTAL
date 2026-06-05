@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "build": "prisma generate",
+    "db:deploy": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "start": "node index.js",
+    "test": "prisma validate"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "@prisma/client": "^4.14.0",
