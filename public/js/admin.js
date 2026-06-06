@@ -270,6 +270,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return `₦${Number(amount || 0).toLocaleString()}`;
     }
 
+    function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[char]));
+    }
+
     function formatDate(date) {
         return date ? new Date(date).toLocaleString() : 'N/A';
     }
@@ -571,21 +581,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch and render reports
     async function fetchReports() {
         try {
-            const res = await adminFetch('/api/admin/analytics'); // Reuse analytics to get payments
+            const params = new URLSearchParams();
+            const startDate = document.getElementById('report-start-date').value;
+            const endDate = document.getElementById('report-end-date').value;
+            const studentName = document.getElementById('report-student-name').value.trim();
+
+            if (startDate) params.set('startDate', startDate);
+            if (endDate) params.set('endDate', endDate);
+            if (studentName) params.set('studentName', studentName);
+
+            const query = params.toString();
+            const res = await adminFetch(`/api/admin/reports${query ? `?${query}` : ''}`);
             const data = await res.json();
             
             const reportsTableBody = document.getElementById('reports-table-body');
             reportsTableBody.innerHTML = '';
+            document.getElementById('report-total-amount').textContent = formatCurrency(data.totalAmount);
+            document.getElementById('report-payment-count').textContent = data.count.toLocaleString();
             
             if (data.payments && data.payments.length > 0) {
                 data.payments.forEach(p => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td>${p.student.name}</td>
-                        <td>${p.paymentCategory.title}</td>
-                        <td>₦${p.amountPaid.toLocaleString()}</td>
+                        <td>${escapeHtml(p.student.name)}</td>
+                        <td>${escapeHtml(p.paymentCategory.title)}</td>
+                        <td>${formatCurrency(p.amountPaid)}</td>
                         <td>${new Date(p.paidAt).toLocaleDateString()}</td>
-                        <td><span class="status-badge status-${p.status}">${p.status}</span></td>
+                        <td><span class="status-badge status-${escapeHtml(p.status)}">${escapeHtml(p.status)}</span></td>
                         <td>
                             <button class="btn btn-primary btn-sm" onclick="showReceipt(${p.id})">Generate Receipt</button>
                         </td>
@@ -601,6 +623,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching reports:', error);
         }
     }
+
+    document.getElementById('btn-apply-report-filter').addEventListener('click', fetchReports);
+    document.getElementById('btn-clear-report-filter').addEventListener('click', () => {
+        document.getElementById('report-start-date').value = '';
+        document.getElementById('report-end-date').value = '';
+        document.getElementById('report-student-name').value = '';
+        fetchReports();
+    });
 
     // Show Receipt Modal
     const modalReceipt = document.getElementById('modal-receipt');

@@ -227,6 +227,63 @@ router.get('/analytics', async (req, res) => {
     }
 });
 
+// GET /api/admin/reports
+router.get('/reports', async (req, res) => {
+    try {
+        const { startDate, endDate, studentName } = req.query;
+        const paidAt = {};
+
+        if (startDate) {
+            const start = new Date(startDate);
+            start.setHours(0, 0, 0, 0);
+            paidAt.gte = start;
+        }
+
+        if (endDate) {
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            paidAt.lte = end;
+        }
+
+        const where = {
+            status: { in: ['paid', 'partially_paid'] },
+            reference: { startsWith: 'MIDLEXX-' },
+            ...(Object.keys(paidAt).length ? { paidAt } : {}),
+            ...(studentName ? {
+                student: {
+                    is: {
+                        name: {
+                            contains: String(studentName).trim(),
+                            mode: 'insensitive'
+                        }
+                    }
+                }
+            } : {})
+        };
+
+        const payments = await req.prisma.studentPayment.findMany({
+            where,
+            include: {
+                student: true,
+                paymentCategory: true
+            },
+            orderBy: {
+                paidAt: 'desc'
+            }
+        });
+
+        const totalAmount = payments.reduce((sum, payment) => sum + payment.amountPaid, 0);
+
+        res.json({
+            totalAmount,
+            count: payments.length,
+            payments
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // POST /api/admin/verify-payment
 router.post('/verify-payment', async (req, res) => {
     try {

@@ -179,6 +179,34 @@
                     <h2>Financial Reports</h2>
                 </header>
 
+                <div class="filters-section glass-morphism" style="margin-bottom: 2rem; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-end; border-radius: 16px; flex-wrap: wrap;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Start Date</label>
+                        <input type="date" id="report-start-date">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>End Date</label>
+                        <input type="date" id="report-end-date">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0; flex: 1; min-width: 220px;">
+                        <label>Student Name</label>
+                        <input type="text" id="report-student-name" placeholder="Search by student name">
+                    </div>
+                    <button class="btn btn-primary" id="btn-apply-report-filter">Fetch Reports</button>
+                    <button class="btn btn-secondary" id="btn-clear-report-filter">Clear</button>
+                </div>
+
+                <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <div class="card">
+                        <h3>Filtered Total</h3>
+                        <div class="value" id="report-total-amount">₦0</div>
+                    </div>
+                    <div class="card">
+                        <h3>Matching Payments</h3>
+                        <div class="value" id="report-payment-count">0</div>
+                    </div>
+                </div>
+
                 <div class="table-container">
                     <table>
                         <thead>
