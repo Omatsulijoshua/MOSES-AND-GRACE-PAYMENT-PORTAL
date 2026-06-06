@@ -23,6 +23,9 @@ OPAY_MERCHANT_ID=your-opay-merchant-id
 OPAY_PUBLIC_KEY=your-opay-public-key
 OPAY_SECRET_KEY=your-opay-secret-key
 ENABLE_MANUAL_PAYMENTS=false
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=replace-with-a-strong-admin-password
+ADMIN_NAME=Portal Admin
 ```
 
 Use your live OPay base URL and live keys when you are ready for real payments.
@@ -48,7 +51,8 @@ This repo includes `render.yaml`.
 1. Create a new Blueprint on Render from this GitHub repository.
 2. Render will create the web service and PostgreSQL database.
 3. Set the unsynced environment variables in the Render dashboard, especially `APP_BASE_URL` and all OPay credentials.
-4. Deploy.
+4. Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` once to create your first admin user.
+5. Deploy.
 
 ## Vercel Deployment
 

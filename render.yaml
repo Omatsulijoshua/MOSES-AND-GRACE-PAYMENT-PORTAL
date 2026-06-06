@@ -3,7 +3,7 @@ services:
     name: moses-and-grace-payment-portal
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build && npx prisma migrate deploy
+    buildCommand: npm ci && npm run build && npx prisma migrate deploy && npm run seed:admin
     startCommand: npm start
     healthCheckPath: /health
     envVars:
@@ -31,8 +31,13 @@ services:
         sync: false
       - key: ENABLE_MANUAL_PAYMENTS
         value: "false"
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        sync: false
 
 databases:
   - name: moses-and-grace-db
     plan: free
-
