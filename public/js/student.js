@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const studentToken = localStorage.getItem('studentToken');
     if (!studentToken) {
-        window.location.href = 'index.html';
+        window.location.href = 'index.html?auth=login';
         return;
     }
 
@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.status === 401 || res.status === 403) {
             localStorage.removeItem('studentToken');
             localStorage.removeItem('studentId');
-            alert('Session expired. Please sign in again.');
-            window.location.href = 'index.html';
+            window.location.href = 'index.html?auth=login&expired=true';
             throw new Error('Session expired');
         }
 

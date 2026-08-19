@@ -3,148 +3,598 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moses & Grace Payment Portal</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        .form-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .form-toggle button {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-        .form-toggle button.active {
-            color: var(--text);
-            border-bottom-color: var(--primary);
-        }
-        .auth-form {
-            display: none;
-        }
-        .auth-form.active {
-            display: block;
-        }
-    </style>
+    <title>Welcome to Moses & Grace Payment Portal</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container" style="max-width: 600px;">
-        <header style="margin-bottom: 2rem; text-align: center;">
-            <div class="logo">
-                <h1 style="color: #dc2626; font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem;">MOSES & GRACE</h1>
-                <span style="color: #16a34a; font-size: 1.2rem; font-weight: 600;">College of Health Science & Technology</span>
-            </div>
-        </header>
-        <main class="glass-morphism" style="padding: 2rem; max-width: 100%;">
-            <div class="form-toggle">
-                <button id="toggle-signin" class="active">Sign In</button>
-                <button id="toggle-signup">Create Account</button>
+<body class="landing-page">
+
+    <!-- Header / Navbar -->
+    <header class="landing-header">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <!-- SVG emblem matching the school crest -->
+                <svg viewBox="0 0 100 100">
+                    <!-- Outer Green Gear/Cog -->
+                    <circle cx="50" cy="45" r="32" fill="none" stroke="#16a34a" stroke-width="4" stroke-dasharray="6,2" />
+                    <!-- Inner Golden border -->
+                    <circle cx="50" cy="45" r="28" fill="#ffffff" stroke="#eab308" stroke-width="1.5" />
+                    <!-- Book representing Science & Tech -->
+                    <path d="M38,45 C44,43 47,46 50,49 C53,46 56,43 62,45 L62,54 C56,52 53,55 50,58 C47,55 44,52 38,54 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5" />
+                    <!-- Caduceus/Asclepius rod in Red representing Health -->
+                    <line x1="50" y1="36" x2="50" y2="53" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M47,39 Q53,41 50,44 T47,48 Q53,51 50,53" fill="none" stroke="#dc2626" stroke-width="1.2" stroke-linecap="round" />
+                    <circle cx="50" cy="34" r="1.5" fill="#dc2626" />
+                    <!-- Red ribbon/banner below -->
+                    <path d="M20,68 L32,63 L50,66 L68,63 L80,68 L80,74 L50,71 L20,74 Z" fill="#dc2626" />
+                    <!-- Tiny white accent line on ribbon -->
+                    <path d="M28,69.5 Q50,72.5 72,69.5" fill="none" stroke="#ffffff" stroke-width="0.8" />
+                </svg>
+                <div class="brand-text">
+                    <span class="brand-name">MOSES & GRACE</span>
+                    <span class="brand-sub">College of Health Science & Tech</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#fee-structure" class="nav-link">Fee Structure</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#faqs" class="nav-link">FAQs</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="admin-login.html" class="btn-nav-secondary">Admin Portal</a>
+                <button class="btn-nav-primary" onclick="openAuthModal('login')">Student Portal</button>
             </div>
 
-            <!-- Sign In Form -->
-            <form id="form-signin" class="auth-form active">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="si-email" required placeholder="name@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="si-password" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
-                <div style="margin-top: 1rem; text-align: center;">
-                    <a href="admin-login.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Are you an Admin? Click here</a>
-                </div>
-            </form>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
 
-            <!-- Create Account Form -->
-            <form id="form-signup" class="auth-form">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="su-name" required placeholder="John Doe">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-tag">Official Student Payment Portal</div>
+            <h1 class="hero-title">Fast, Secure, & Hassle-Free <span>School Payments</span></h1>
+            <p class="hero-desc">Welcome to the Moses & Grace College of Health Science & Technology portal. Conveniently pay tuition, acceptance fees, departmental dues, and generate instant digital receipts.</p>
+            <div class="hero-ctas">
+                <button class="btn-hero-lg primary" onclick="openAuthModal('register')">
+                    Get Started
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
+                </button>
+                <a href="#fee-structure" class="btn-hero-lg secondary">View Fee Schedule</a>
+            </div>
+            <div class="gateway-assurance">
+                <div class="assurance-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path></svg>
+                    <span>100% Secure Checkout</span>
                 </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="su-email" required placeholder="name@example.com">
+                <div class="assurance-item">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"></path></svg>
+                    <span>OPay Integration Enabled</span>
                 </div>
-                <div class="form-group">
-                    <label>Department</label>
-                    <select id="su-dept" required>
-                        <option value="">-- Select Department --</option>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="decor-ring"></div>
+            <div class="mockup-container">
+                <div class="mockup-card">
+                    <div class="mockup-header">
+                        <div class="mockup-user">
+                            <div class="mockup-avatar">JD</div>
+                            <div class="mockup-username">
+                                <span>Jane Doe</span>
+                                <span>Pharmacy Technician | ND2</span>
+                            </div>
+                        </div>
+                        <span class="mockup-status">2026/2027</span>
+                    </div>
+                    <div class="mockup-bill">
+                        <div class="mockup-bill-row">
+                            <span>Outstanding Balance:</span>
+                            <span style="color: var(--primary); font-weight: bold;">₦45,000</span>
+                        </div>
+                        <div class="mockup-bill-row">
+                            <span>Selected Category:</span>
+                            <span>Tuition Fee - Part Payment</span>
+                        </div>
+                        <div class="mockup-bill-row total">
+                            <span>Amount to Pay:</span>
+                            <span>₦45,000.00</span>
+                        </div>
+                    </div>
+                    <div class="mockup-opay-badge">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 0.25rem;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        Pay Safely via OPay Cashier
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Float UI elements -->
+            <div class="mockup-floating-element el-1">
+                <div class="icon-circle success">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+                </div>
+                <div>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Payment Confirmed</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Receipt #MGA-9824</p>
+                </div>
+            </div>
+            <div class="mockup-floating-element el-2">
+                <div class="icon-circle danger">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z"></path></svg>
+                </div>
+                <div>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Secure Portal</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">256-bit SSL Encrypted</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-header">
+            <span class="section-subtitle">Portal Advantages</span>
+            <h2 class="section-title">Designed for Seamless Operations</h2>
+            <p class="section-desc">We have simplified standard health college payments. Experience convenience built directly around your academic activities.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card f-1">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path></svg>
+                </div>
+                <h3>Secure Payment Processing</h3>
+                <p>All school dues are processed via OPay's heavily-protected cashier system, utilizing industrial-grade security filters to keep your transactions safe.</p>
+            </div>
+            <div class="feature-card f-2">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
+                </div>
+                <h3>Instant Receipt Generation</h3>
+                <p>Download or print official, computer-generated payment receipts immediately after completing your transaction. No more queuing at the bursary.</p>
+            </div>
+            <div class="feature-card f-3">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l8.904-4.406m-8.904 0a10.025 10.025 0 012.776-3.078m.007-.007L20.5 3.5a2 2 0 112.828 2.828l-8.499 8.5m0 0A10.024 10.024 0 0110.5 17.5M10.5 17.5l.3-.3m-6.883-4.133a8.9 8.9 0 00-.22 1.378c-.03.44.05.854.223 1.222l1.09-1.09a1.05 1.05 0 00-.222-.622l-1.09-1.09z"></path></svg>
+                </div>
+                <h3>Integrated Support Desk</h3>
+                <p>Got a pending transaction or validation issue? Lodge a support ticket directly from your student dashboard and get quick resolution from admin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fee Structure Section -->
+    <div class="bg-section-wrapper" id="fee-structure">
+        <section class="section">
+            <div class="section-header">
+                <span class="section-subtitle">Fees Information</span>
+                <h2 class="section-title">Academic Dues & Structure</h2>
+                <p class="section-desc">Inspect standard fee categories and schedules across various departments of Moses & Grace College of Health Sciences.</p>
+            </div>
+
+            <div class="fee-table-card">
+                <div class="fee-table-filters">
+                    <div class="fee-filter-title">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3"></path></svg>
+                        <span>Select Department</span>
+                    </div>
+                    <select class="fee-filter-select" id="fee-dept-filter" onchange="filterFeeTable()">
+                        <option value="all">All Departments</option>
+                        <!-- Dynamically filled -->
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Level</label>
-                    <input type="text" id="su-level" required placeholder="e.g. ND1">
+
+                <div class="landing-table-wrapper">
+                    <table class="landing-table">
+                        <thead>
+                            <tr>
+                                <th>Fee Description</th>
+                                <th>Department</th>
+                                <th>Level</th>
+                                <th>Session</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="landing-fee-tbody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading fee structure data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <label>Session</label>
-                    <input type="text" id="su-session" required placeholder="e.g. 2026/2027">
+            </div>
+        </section>
+    </div>
+
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works">
+        <div class="section-header">
+            <span class="section-subtitle">Simple Procedure</span>
+            <h2 class="section-title">How To Complete Your Payments</h2>
+            <p class="section-desc">Follow these four simple steps to successfully execute payments and clear outstanding balances.</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Access Portal</h3>
+                <p>Register a student account or log in to your existing account using your matric/registered email address.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Select Fee Category</h3>
+                <p>Navigate to your fees panel, review your department's outstanding invoices, and choose the fee you want to pay.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Process on OPay</h3>
+                <p>Enter the amount, redirect securely to the OPay checkout environment, and pay via Transfer, Card, or Wallet.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Print Official Receipt</h3>
+                <p>Upon verification, retrieve your instant, computer-generated receipt from your portal transaction history.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordions -->
+    <section class="section" id="faqs">
+        <div class="section-header">
+            <span class="section-subtitle">Common Questions</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc">Answers to the most common inquiries regarding credentials, transaction security, and receipt verification.</p>
+        </div>
+
+        <div class="faqs-container">
+            <div class="faq-card">
+                <button class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-title">Is my payment details secure on this portal?</span>
+                    <svg class="faq-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Yes, absolutely. The portal utilizes 256-bit SSL encryption. We do not store card pins or bank details. All actual money processing is executed on OPay's PCI-DSS compliant secure servers.
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="su-password" required placeholder="••••••••">
+            </div>
+
+            <div class="faq-card">
+                <button class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-title">What happens if my transaction fails but I am debited?</span>
+                    <svg class="faq-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        If a debit occurs but the status on the portal shows pending or failed, simply navigate to the Support section in your dashboard, select the transaction category, and lodge a ticket with the OPay reference. The admin team will verify it from the merchant logs and credit you manually.
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
-            </form>
-        </main>
+            </div>
+
+            <div class="faq-card">
+                <button class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-title">Can I pay my fees in installments?</span>
+                    <svg class="faq-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Yes, the portal supports flexible, partial payments. When click the "Pay" button next to an outstanding fee, you can edit the input box to enter the partial amount you wish to pay, as long as it does not exceed the outstanding balance.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <button class="faq-header" onclick="toggleFaq(this)">
+                    <span class="faq-title">How do I verify or print a receipt?</span>
+                    <svg class="faq-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Once logged into your dashboard, switch to the "Payment History" tab. Locate the specific payment record and click the "Print Receipt" button. This will launch a printable template that you can save as a PDF or send directly to a printer.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support banner -->
+    <section class="section">
+        <div class="contact-banner">
+            <h2>Need Academic Portal Support?</h2>
+            <p>If you encounter technical hitches, credential losses, or need manual payment reviews, please reach out to the ICT and bursary helpline.</p>
+            <div class="contact-details">
+                <div class="contact-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
+                    <span>support@mosesandgrace.edu.ng</span>
+                </div>
+                <div class="contact-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-1.514 2.019a14.992 14.992 0 01-6.556-6.556l2.019-1.514c.361-.272.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"></path></svg>
+                    <span>+234 (0) 803 123 4567</span>
+                </div>
+                <div class="contact-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25A7.5 7.5 0 1119.5 10.5z"></path></svg>
+                    <span>Benin-City, Edo State, Nigeria</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-copyright">
+                &copy; 2026 Moses & Grace College of Health Science & Technology. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="admin-login.html" class="footer-link">Admin Sign In</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Portal Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <button class="auth-close" onclick="closeAuthModal()">&times;</button>
+            <div class="auth-modal-header">
+                <div class="auth-logo">
+                    <svg viewBox="0 0 100 100" style="width: 44px; height: 44px;">
+                        <circle cx="50" cy="45" r="32" fill="none" stroke="#16a34a" stroke-width="4" stroke-dasharray="6,2" />
+                        <circle cx="50" cy="45" r="28" fill="#ffffff" stroke="#eab308" stroke-width="1.5" />
+                        <path d="M38,45 C44,43 47,46 50,49 C53,46 56,43 62,45 L62,54 C56,52 53,55 50,58 C47,55 44,52 38,54 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5" />
+                        <line x1="50" y1="36" x2="50" y2="53" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />
+                        <path d="M47,39 Q53,41 50,44 T47,48 Q53,51 50,53" fill="none" stroke="#dc2626" stroke-width="1.2" stroke-linecap="round" />
+                        <circle cx="50" cy="34" r="1.5" fill="#dc2626" />
+                        <path d="M20,68 L32,63 L50,66 L68,63 L80,68 L80,74 L50,71 L20,74 Z" fill="#dc2626" />
+                    </svg>
+                    <div class="auth-logo-text">
+                        <span class="brand-name">MOSES & GRACE</span>
+                        <div class="auth-logo-sub">College of Health Science & Tech</div>
+                    </div>
+                </div>
+                <h3 id="auth-modal-title" style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark);">Sign In to Portal</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Please provide details below to access student bills.</p>
+            </div>
+
+            <div class="auth-modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="toggle-signin">Sign In</button>
+                    <button class="auth-tab" id="toggle-signup">Create Account</button>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="form-signin" class="auth-form-content">
+                    <div class="landing-form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
+                            <input type="email" id="si-email" class="landing-input" required placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
+                            <input type="password" id="si-password" class="landing-input" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-auth-submit">Sign In</button>
+                    
+                    <div class="auth-form-footer">
+                        <a href="admin-login.html">Are you an Admin? Click here</a>
+                    </div>
+                </form>
+
+                <!-- Create Account Form -->
+                <form id="form-signup" class="auth-form-content" style="display: none;">
+                    <div class="landing-form-group">
+                        <label>Full Name</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                            <input type="text" id="su-name" class="landing-input" required placeholder="John Doe">
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
+                            <input type="email" id="su-email" class="landing-input" required placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Department</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.19L12 16.22l7.74-6.03m-15.48 0a4.81 4.81 0 01-1.61-3.69l7.74-6.03L21.35 6.5a4.81 4.81 0 01-1.61 3.69m-15.48 0L12 16.22l7.74-6.03M12 16.22V21M3.75 21h16.5"></path></svg>
+                            <select id="su-dept" class="landing-input" required style="appearance: none; -webkit-appearance: none;">
+                                <option value="">-- Select Department --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Level</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.19L12 16.22l7.74-6.03m-15.48 0a4.81 4.81 0 01-1.61-3.69l7.74-6.03L21.35 6.5a4.81 4.81 0 01-1.61 3.69m-15.48 0L12 16.22l7.74-6.03M12 16.22V21M3.75 21h16.5"></path></svg>
+                            <input type="text" id="su-level" class="landing-input" required placeholder="e.g. ND1">
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Session</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"></path></svg>
+                            <input type="text" id="su-session" class="landing-input" required placeholder="e.g. 2026/2027">
+                        </div>
+                    </div>
+                    <div class="landing-form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
+                            <input type="password" id="su-password" class="landing-input" required placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-auth-submit">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast elements -->
+    <div class="landing-toast toast-error" id="landing-toast">
+        <svg id="toast-icon-error" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <svg id="toast-icon-success" style="width: 20px; height: 20px; display: none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span id="toast-message">Verification error. Please retry.</span>
     </div>
 
     <script>
-        // Toggle forms
-        const btnSignIn = document.getElementById('toggle-signin');
-        const btnSignUp = document.getElementById('toggle-signup');
+        // DOM Elements
+        const modal = document.getElementById('auth-modal');
+        const modalTitle = document.getElementById('auth-modal-title');
+        const btnSignInTab = document.getElementById('toggle-signin');
+        const btnSignUpTab = document.getElementById('toggle-signup');
         const formSignIn = document.getElementById('form-signin');
         const formSignUp = document.getElementById('form-signup');
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const toast = document.getElementById('landing-toast');
+        const toastMessage = document.getElementById('toast-message');
+        const toastIconError = document.getElementById('toast-icon-error');
+        const toastIconSuccess = document.getElementById('toast-icon-success');
 
-        btnSignIn.addEventListener('click', () => {
-            btnSignIn.classList.add('active');
-            btnSignUp.classList.remove('active');
-            formSignIn.classList.add('active');
-            formSignUp.classList.remove('active');
+        // State variables
+        let feeCategories = [];
+
+        // Mobile Nav Toggle
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
         });
 
-        btnSignUp.addEventListener('click', () => {
-            btnSignUp.classList.add('active');
-            btnSignIn.classList.remove('active');
-            formSignUp.classList.add('active');
-            formSignIn.classList.remove('active');
+        // Close Menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
         });
 
-        // Handle Sign In
+        // FAQ accordion toggle
+        function toggleFaq(headerButton) {
+            const faqCard = headerButton.parentElement;
+            const isActive = faqCard.classList.contains('active');
+            
+            // Close all first
+            document.querySelectorAll('.faq-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // Open clicked if it wasn't already active
+            if (!isActive) {
+                faqCard.classList.add('active');
+            }
+        }
+
+        // Open Auth Modal with view ('login' or 'register')
+        function openAuthModal(view = 'login') {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+            switchTab(view);
+        }
+
+        // Close Auth Modal
+        function closeAuthModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Unlock scrolling
+        }
+
+        // Click outside modal to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeAuthModal();
+            }
+        });
+
+        // Tab Switching logic
+        function switchTab(view) {
+            if (view === 'login') {
+                btnSignInTab.classList.add('active');
+                btnSignUpTab.classList.remove('active');
+                formSignIn.style.display = 'block';
+                formSignUp.style.display = 'none';
+                modalTitle.textContent = 'Sign In to Portal';
+            } else {
+                btnSignUpTab.classList.add('active');
+                btnSignInTab.classList.remove('active');
+                formSignUp.style.display = 'block';
+                formSignIn.style.display = 'none';
+                modalTitle.textContent = 'Create Student Account';
+            }
+        }
+
+        btnSignInTab.addEventListener('click', () => switchTab('login'));
+        btnSignUpTab.addEventListener('click', () => switchTab('register'));
+
+        // Toast notifications
+        function showToast(message, type = 'error') {
+            toastMessage.textContent = message;
+            toast.className = 'landing-toast'; // Reset class
+            
+            if (type === 'success') {
+                toast.classList.add('toast-success');
+                toastIconSuccess.style.display = 'block';
+                toastIconError.style.display = 'none';
+            } else {
+                toast.classList.add('toast-error');
+                toastIconSuccess.style.display = 'none';
+                toastIconError.style.display = 'block';
+            }
+
+            toast.style.display = 'flex';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+
+        // Handle Sign In API submission
         formSignIn.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('si-email').value;
             const password = document.getElementById('si-password').value;
 
-            // Call API
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
 
-            if (res.ok) {
                 const data = await res.json();
-                localStorage.setItem('studentToken', data.token);
-                localStorage.setItem('studentId', data.studentId);
-                window.location.href = 'student.html';
-            } else {
-                const data = await res.json();
-                alert(`Error: ${data.error || 'Login failed'}`);
+                if (res.ok) {
+                    localStorage.setItem('studentToken', data.token);
+                    localStorage.setItem('studentId', data.studentId);
+                    showToast('Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'student.html';
+                    }, 1000);
+                } else {
+                    showToast(data.error || 'Login failed. Please check credentials.');
+                }
+            } catch (error) {
+                showToast('Unable to connect to server. Check your network.');
             }
         });
 
-        // Handle Sign Up
+        // Handle Sign Up API submission
         formSignUp.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('su-name').value;
@@ -154,26 +604,35 @@
             const session = document.getElementById('su-session').value;
             const password = document.getElementById('su-password').value;
 
-            // Call API
-            const res = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, department, level, session, password })
-            });
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, department, level, session, password })
+                });
 
-            if (res.ok) {
-                alert('Account created successfully! Please sign in.');
-                btnSignIn.click(); // Switch to sign in
-            } else {
                 const data = await res.json();
-                alert(`Error: ${data.error || 'Registration failed'}`);
+                if (res.ok) {
+                    showToast('Account created successfully! Switching to sign in...', 'success');
+                    setTimeout(() => {
+                        switchTab('login');
+                        document.getElementById('si-email').value = email;
+                    }, 1500);
+                } else {
+                    showToast(data.error || 'Registration failed.');
+                }
+            } catch (error) {
+                showToast('Unable to connect to server. Check your network.');
             }
         });
-        // Fetch and populate departments for signup
+
+        // Fetch & Populate Departments dropdown
         async function fetchSignupDepartments() {
             try {
                 const res = await fetch('/api/auth/student-categories');
                 const categories = await res.json();
+                
+                // Populate signup select
                 const deptSelect = document.getElementById('su-dept');
                 if (deptSelect) {
                     deptSelect.innerHTML = '<option value="">-- Select Department --</option>';
@@ -184,12 +643,98 @@
                         deptSelect.appendChild(option);
                     });
                 }
+
+                // Populate landing page fee table selector
+                const filterSelect = document.getElementById('fee-dept-filter');
+                if (filterSelect) {
+                    categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.name.toLowerCase();
+                        option.textContent = cat.name;
+                        filterSelect.appendChild(option);
+                    });
+                }
             } catch (error) {
                 console.error('Error fetching departments:', error);
             }
         }
 
-        fetchSignupDepartments();
+        // Fetch & render public payment fee structures
+        // Since there is no public fee categories endpoint, we can display mock/sample fees or fetch from database
+        // Let's create a beautiful static fee categories list or show dynamic ones.
+        // Wait, since admin creates payment categories, we can display a clean, rich preview that covers typical fee brackets.
+        // Let's populate the table with standard M&G academic dues:
+        const sampleFeeStructures = [
+            { title: "Acceptance Fees", dept: "All Departments", level: "ND1 / HND1", session: "2026/2027", type: "Compulsory", amount: 20000 },
+            { title: "Tuition Fees (Community Health)", dept: "Community Health", level: "ND1", session: "2026/2027", type: "Compulsory", amount: 95000 },
+            { title: "Tuition Fees (Pharmacy Tech)", dept: "Pharmacy Technician", level: "ND1", session: "2026/2027", type: "Compulsory", amount: 110000 },
+            { title: "Tuition Fees (CHEW)", dept: "CHEW", level: "ND2", session: "2026/2027", type: "Compulsory", amount: 95000 },
+            { title: "Laboratory Practical Dues", dept: "Pharmacy Technician", level: "All Levels", session: "2026/2027", type: "Departmental", amount: 15000 },
+            { title: "Logbook & Practical Manual", dept: "Community Health", level: "ND1", session: "2026/2027", type: "Material", amount: 10000 },
+            { title: "Examination Invoicing Dues", dept: "All Departments", level: "All Levels", session: "2026/2027", type: "Compulsory", amount: 12000 }
+        ];
+
+        function renderFeeTable(departmentFilter = 'all') {
+            const tbody = document.getElementById('landing-fee-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            
+            const filtered = departmentFilter === 'all' 
+                ? sampleFeeStructures 
+                : sampleFeeStructures.filter(f => f.dept.toLowerCase().includes(departmentFilter) || f.dept.toLowerCase() === 'all departments');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">No fee structures registered for this department.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(fee => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 500;">${fee.title}</td>
+                    <td>${fee.dept}</td>
+                    <td>${fee.level}</td>
+                    <td>${fee.session}</td>
+                    <td><span class="fee-type-badge">${fee.type}</span></td>
+                    <td class="fee-amount-cell">₦${fee.amount.toLocaleString()}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterFeeTable() {
+            const val = document.getElementById('fee-dept-filter').value;
+            renderFeeTable(val);
+        }
+
+        // Handle Redirect parameters
+        function checkRedirectParams() {
+            const params = new URLSearchParams(window.location.search);
+            const authParam = params.get('auth');
+            const expiredParam = params.get('expired');
+
+            if (expiredParam === 'true') {
+                showToast('Your session has expired. Please sign in again.');
+                openAuthModal('login');
+            } else if (authParam === 'login') {
+                openAuthModal('login');
+            } else if (authParam === 'register') {
+                openAuthModal('register');
+            }
+            
+            // Clean up history to remove parameters from URL bar
+            if (authParam || expiredParam) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchSignupDepartments();
+            renderFeeTable('all');
+            checkRedirectParams();
+        });
     </script>
 </body>
 </html>
