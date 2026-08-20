@@ -12,6 +12,13 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = express();
+app.use((req, res, next) => {
+  if (req.headers['x-matched-path']) {
+    req.url = req.headers['x-matched-path'];
+  }
+  console.log(`Express received request: ${req.method} ${req.url}`);
+  next();
+});
 
 app.set('trust proxy', 1);
 app.disable('x-powered-by');
@@ -24,6 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/health', (req, res) => {
+  console.log("Health check matched!");
   res.json({ status: 'ok' });
 });
 
@@ -32,6 +40,11 @@ app.use('/api/admin', requireAuth('admin'), require('./routes/admin'));
 app.use('/api/student', require('./routes/student'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res) => {
+  console.log(`Express fallback reached for: ${req.method} ${req.url}`);
+  res.status(404).send(`Express 404: Not Found at ${req.url}`);
+});
 
 module.exports = {
   app,
