@@ -3,8 +3,8 @@ services:
     name: moses-and-grace-payment-portal
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build && npx prisma migrate deploy && npm run seed:admin
-    startCommand: npm start
+    buildCommand: npm ci && npm run build
+    startCommand: npm run db:deploy && npm run seed:admin && npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
