@@ -63,4 +63,4 @@ This repo includes `vercel.json` and a serverless API entrypoint in `api/index.j
 3. Use a hosted PostgreSQL connection string for `DATABASE_URL`.
 4. Deploy.
 
-The static pages in `public/` are served by Vercel, while `/api/*` routes are handled by the Express serverless function.
+The static pages in `public/` are served by Vercel, while `/api/*` routes are handled by the Express serverless function...
